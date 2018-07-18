@@ -1,0 +1,115 @@
+<div>
+    <h3>
+        Add New Employee:
+    </h3>
+    <br>
+    <form #form="ngForm" novalidate (ngSubmit)="onSubmit(form.value)" novalidate>
+        <div class="form-group">
+            <label>First name:</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" required>
+            <div class="alert alert-danger" [hidden]="firstName.untouched || firstName.valid">First Name is required</div>
+        </div>
+        <div class="form-group">
+            <label>Last name:</label><br>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" required>
+            <div class="alert alert-danger" [hidden]="lastName.untouched || lastName.valid">Last Name is required</div>
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" class="form-control" name="emailaddress" id="emailaddress" [(ngModel)]="model.emailaddress" #emailaddress="ngModel" required pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$" />
+            <div class="alert alert-danger" [hidden]="emailaddress.untouched || emailaddress.valid">Email is required and must be valid</div>
+        </div>
+
+        <div class="form-group">
+            <label>Contact Number:</label>
+            <input type="text" class="form-control" name="contact" id="contact" [(ngModel)]="model.contact" #contact="ngModel" required />
+            <div class="alert alert-danger" [hidden]="contact.untouched || contact.valid">contact is required and must be valid</div>
+        </div>
+
+        <div class="form-group">
+            <label>Address:</label><br>
+            <textarea id="address" class="form-control" name="address" [(ngModel)]="model.address" #address="ngModel" required></textarea>
+            <div class="alert alert-danger" [hidden]="address.untouched || address.valid">Address is required</div>
+        </div>
+
+        <div class="form-group">
+            <label>Username:</label><br>
+            <input type="text" class="form-control" name="username" id="username" [(ngModel)]="model.username" #username="ngModel" required />
+            <div class="alert alert-danger" [hidden]="username.untouched || username.valid">Username is required</div>
+        </div>
+
+        <div class="form-group">
+            <label>Password:</label><br>
+            <input type="password" class="form-control" name="pwd" id="pwd" [(ngModel)]="model.pwd" #pwd="ngModel" required />
+            <div class="alert alert-danger" [hidden]="pwd.untouched || pwd.valid">Password is required</div>
+        </div>
+
+        <div class="form-group">
+            <label>Gender:</label>
+            <div class="radio">
+                <label><input type="radio" name="gender" value="male" [(ngModel)]="model.gender" #gender="ngModel" required /> Male<br></label>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="gender" value="female" [(ngModel)]="model.gender" #gender="ngModel" required /> Female<br></label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Qualification: </label><br>
+            <select class="form-control" name="qual" [(ngModel)]="model.qual" required>
+                <option *ngFor="let qualification of qualifications">
+                    {{qualification}}
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label>Experience: </label><br>
+            <select name="experience" [(ngModel)]="model.exp">
+                <option *ngFor="let exp of experience">
+                    {{exp}}
+                </option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Coding languages: </label><br>
+            <!-- <div >
+                 <div *ngFor="let lang of languages; let i = index;">
+                 <label  for="lang{{lang.value}}">
+                 <input type="checkbox"
+                     name="languages"
+                     value="{{lang.name}}"
+                [checked]="lang.checked"
+                  />
+                 {{lang.name}}</label>
+                 </div>
+                 </div>
+             -->
+            <div *ngFor="let lang of languages; let i = index;">
+
+                <label for="lang{{lang.value}}">
+
+                    <input  type="checkbox"
+                           name="languages"
+                           value="{{lang.name}}"
+                           (change)="change($event, lang,i)"/>
+                    {{lang.name}}
+                </label>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
+            <button [routerLink]="['/employeelist']" class="btn btn-primary" style="margin-left:10px;">Back</button>
+        </div>  
+        
+     </form>
+</div>
+<!--
+Model: {{model | json}}
+<br>
+Angular:{{form.value | json}}
+<br>
+-->
